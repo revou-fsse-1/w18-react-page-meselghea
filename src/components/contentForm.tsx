@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface ContentFormProps {
   formData: {
@@ -12,6 +12,22 @@ interface ContentFormProps {
 }
 
 const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit }) => {
+  const [emailError, setEmailError] = useState('');
+
+  const validateEmail = (email: string) => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+      setEmailError('Invalid email format');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e);
+    validateEmail(e.target.value);
+  };
+
   return (
     <div className="max-w-[600px] min-h-[300px] fixed z-50 top-[30vh] px-12 py-6 bg-white rounded-lg">
       <h1 className="text-2xl font-bold text-slate-800">Register to Photo Club Member</h1>
@@ -26,11 +42,10 @@ const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit 
               name="email" 
               placeholder="Insert your email"
               value={formData.email}
-              onChange={onChange}
-              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+              onChange={handleEmailChange}
               required={true}
             />
-            <span className="mt-1 ml-2 text-sm text-red-600"></span>
+            <span className="mt-1 ml-2 text-sm text-red-600">{emailError}</span>
           </label>
           <label className="flex flex-col mt-2">
             <span className="text-sm font-semibold">First Name</span>

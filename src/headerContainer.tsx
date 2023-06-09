@@ -18,7 +18,7 @@ function Header() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center bg-pink-600 ">
       <h1 className="mt-4 text-3xl font-bold text-white">Photo Club Gallery</h1>
       <LikesPhotoCounter count={likedCount} />
     </div>
