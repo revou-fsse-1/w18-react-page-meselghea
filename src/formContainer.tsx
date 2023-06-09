@@ -34,6 +34,7 @@ const ContainerForm: React.FC = () => {
       console.log(error);
     }
   };
+  
 
   const closeSnackbar = () => {
     setShowSnackbar(false);
@@ -65,6 +66,7 @@ const ContainerForm: React.FC = () => {
                 handleFormSubmit();
                 closePopup();
               }}
+              required={true}
             />
           </PopupForm>
         )}
@@ -72,7 +74,7 @@ const ContainerForm: React.FC = () => {
 
       {showSnackbar && (
         <Snackbar showSnackbar={showSnackbar} onClose={closeSnackbar}>
-          Success Registration!
+          Your Registration has been submitted successfully!
         </Snackbar>
       )}
     </div>

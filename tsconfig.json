@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "photoContainer.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

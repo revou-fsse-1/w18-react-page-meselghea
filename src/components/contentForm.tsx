@@ -8,6 +8,7 @@ interface ContentFormProps {
   };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
+  required: true;
 }
 
 const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit }) => {
@@ -22,10 +23,12 @@ const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit 
             <input
               className="mt-1 border-[1px] text-sm border-gray-400 px-2 py-1 rounded-lg"
               type="email"
-              name="email"
+              name="email" 
               placeholder="Insert your email"
               value={formData.email}
               onChange={onChange}
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+              required={true}
             />
             <span className="mt-1 ml-2 text-sm text-red-600"></span>
           </label>
@@ -38,6 +41,7 @@ const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit 
               placeholder="Insert your first name"
               value={formData.fname}
               onChange={onChange}
+              required={true}
             />
             <span className="mt-1 ml-2 text-sm text-red-600"></span>
           </label>
@@ -50,6 +54,7 @@ const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit 
               placeholder="Insert your last name"
               value={formData.lname}
               onChange={onChange}
+              required={true}
             />
             <span className="mt-1 ml-2 text-sm text-red-600"></span>
           </label>
