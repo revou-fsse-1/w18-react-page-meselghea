@@ -1,9 +1,9 @@
-import  { useState } from 'react';
+import React, { useState, } from 'react';
 import PopupForm from './components/popupForm';
 import Snackbar from './components/successRegistration';
 import ContentForm from './components/contentForm';
 
-const ContainerForm = () => {
+const ContainerForm: React.FC = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [formData, setFormData] = useState({
@@ -20,42 +20,26 @@ const ContainerForm = () => {
     setIsPopupOpen(false);
   };
 
-  const handleFormSubmit = () => {
-    // Simulate saving form data to the server
-    const dataToSave = {
-      email: formData.email,
-      fname: formData.fname,
-      lname: formData.lname,
-    };
-
-    // Send the data to the server
-    fetch('/api/saveFormData', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataToSave),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Data saved on the server:', data);
-        setFormData({
-          email: '',
-          fname: '',
-          lname: '',
-        });
-        setShowSnackbar(true); // Update the state to show the snackbar
-      })
-      .catch((error) => {
-        console.error('Error saving data:', error);
+  const handleFormSubmit = async () => {
+    try {
+      // Simulate saving form data to local storage using Axios
+      localStorage.setItem('formData', JSON.stringify(formData));
+      setShowSnackbar(true);
+      setFormData({
+        email: '',
+        fname: '',
+        lname: '',
       });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const closeSnackbar = () => {
     setShowSnackbar(false);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -67,7 +51,7 @@ const ContainerForm = () => {
     <div>
       <div className="mt-6">
         <button
-          className="border-[1px] border-gray px-6 py-1 text-md font-semibold bg-white rounded-lg hover:scale-110 duration-200"
+          className="cursor-pointer border-[1px] border-grey px-6 py-1 text-md font-semibold top-[3px] right-[3px] bg-white rounded-lg hover:scale-110 duration-200"
           onClick={openPopup}
         >
           Join Photo Club Membership
@@ -77,14 +61,17 @@ const ContainerForm = () => {
             <ContentForm
               formData={formData}
               onChange={handleInputChange}
-              onSubmit={handleFormSubmit}
+              onSubmit={() => {
+                handleFormSubmit();
+                closePopup();
+              }}
             />
           </PopupForm>
         )}
       </div>
 
       {showSnackbar && (
-        <Snackbar onClose={closeSnackbar}>
+        <Snackbar showSnackbar={showSnackbar} onClose={closeSnackbar}>
           Success Registration!
         </Snackbar>
       )}

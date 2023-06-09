@@ -7,7 +7,7 @@ interface ContentFormProps {
     lname: string;
   };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: () => void;
+  onSubmit: (e: React.FormEvent) => void;
 }
 
 const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit }) => {
@@ -21,7 +21,7 @@ const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit 
             <span className="text-sm font-semibold">User Email</span>
             <input
               className="mt-1 border-[1px] text-sm border-gray-400 px-2 py-1 rounded-lg"
-              type="text"
+              type="email"
               name="email"
               placeholder="Insert your email"
               value={formData.email}
