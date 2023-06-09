@@ -27,7 +27,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, liked, onLike }) => {
       <div className="absolute top-2 right-2">
         <button
           className={`px-2 py-1 text-xs font-semibold ${
-            liked ? 'bg-red-500' : 'bg-green-500'
+            liked ? 'bg-sky-600' : 'bg-sky-950'
           } text-white rounded`}
           onClick={handleLikeClick}
         >

@@ -58,7 +58,7 @@ const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit 
             />
             <span className="mt-1 ml-2 text-sm text-red-600"></span>
           </label>
-          <button className="mt-4 w-full cursor-pointer border-[1px] border-grey px-6 py-1 text-md font-semibold top-[3px] right-[3px] bg-green-700 text-white rounded-lg duration-200" onClick={onSubmit}>
+          <button className="mt-4 w-full cursor-pointer border-[1px] border-grey px-6 py-1 text-md font-semibold top-[3px] right-[3px] bg-sky-950 text-white rounded-lg duration-200" onClick={onSubmit}>
             Register Now
           </button>
         </form>
