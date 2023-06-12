@@ -39,7 +39,7 @@ const ContainerForm: React.FC = () => {
     if (formData.email.trim() === '' || formData.fname.trim() === '' || formData.lname.trim() === '') {
       // Set pesan kesalahan jika ada input yang kosong
       setEmailError('All fields are required');
-      return;
+      return closePopup;
     }
     if (!isValidEmail) {
       return;
@@ -52,6 +52,7 @@ const ContainerForm: React.FC = () => {
         fname: '',
         lname: '',
       });
+      closePopup();
     } catch (error) {
       console.log(error);
     }
@@ -85,8 +86,7 @@ const ContainerForm: React.FC = () => {
               formData={formData}
               onChange={handleInputChange}
               onSubmit={() => {
-                handleFormSubmit();
-              }}
+                handleFormSubmit(), closePopup }}
               emailError={emailError}
               required={true}
             />
