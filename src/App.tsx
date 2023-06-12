@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import Header from './headerContainer'
-import ContainerForm from './formContainer';
+import { useState, } from 'react';
+import Header from './components/HeaderContainer'
+import ContainerForm from './components/FormContainer';
 import { Photos } from './data/photoDb';
-import PhotosContainer from './photosContainer';
-import PhotoFilter from './components/photoFilter';
+import PhotosContainer from './components/PhotosContainer';
+import PhotoFilter from './components/PhotoFilter';
 
 function App() {
   const [filterText, setFilterText] = useState('');
@@ -17,11 +17,9 @@ function App() {
     setLikedCount(count); 
     console.log(`Liked count changed: ${count}`);
   };
-  useEffect(() => {
-    // Mengirim pesan ke window parent (console) dengan nilai count
-    window.parent.postMessage({ type: 'countChange', count: likedCount }, '*');
-  }, [likedCount]);
- 
+
+  window.parent.postMessage({ type: 'countChange', count: likedCount }, '*');
+
   const filteredPhotos = Photos.filter((photo) =>
     photo.name.toLowerCase().includes(filterText.toLowerCase())
   );

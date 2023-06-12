@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Photo } from '../data/photoDb';
+import { Photo } from '../../data/photoDb';
 
 export const filterByName = (photos: Photo[], filterText: string): Photo[] => {
   return photos.filter((photo) =>

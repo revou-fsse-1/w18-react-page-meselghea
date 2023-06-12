@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import LikesPhotoCounter from './components/likedPhotosCounter';
+import LikesPhotoCounter from './header/LikedPhotosCounter';
 
 function Header() {
   const [likedCount, setLikedCount] = useState(0);

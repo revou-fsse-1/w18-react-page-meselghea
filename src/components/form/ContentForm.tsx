@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 interface ContentFormProps {
   formData: {
@@ -8,25 +8,11 @@ interface ContentFormProps {
   };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
+  emailError: string; 
   required: true;
 }
 
-const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit }) => {
-  const [emailError, setEmailError] = useState('');
-
-  const validateEmail = (email: string) => {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(email)) {
-      setEmailError('Invalid email format');
-    } else {
-      setEmailError('');
-    }
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e);
-    validateEmail(e.target.value);
-  };
+const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit, emailError }) => {
 
   return (
     <div className="max-w-[600px] min-h-[300px] fixed z-50 top-[30vh] px-12 py-6 bg-white rounded-lg">
@@ -42,7 +28,7 @@ const ContentForm: React.FC<ContentFormProps> = ({ formData, onChange, onSubmit 
               name="email" 
               placeholder="Insert your email"
               value={formData.email}
-              onChange={handleEmailChange}
+              onChange={onChange}
               required={true}
             />
             <span className="mt-1 ml-2 text-sm text-red-600">{emailError}</span>

@@ -1,11 +1,12 @@
 import React, { useState, } from 'react';
-import PopupForm from './components/popupForm';
-import Snackbar from './components/successRegistration';
-import ContentForm from './components/contentForm';
+import PopupForm from './form/PopupForm';
+import Snackbar from './form/SuccessRegistration';
+import ContentForm from './form/ContentForm';
 
 const ContainerForm: React.FC = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const [emailError, setEmailError] = useState('');
   const [formData, setFormData] = useState({
     email: '',
     fname: '',
@@ -20,9 +21,30 @@ const ContainerForm: React.FC = () => {
     setIsPopupOpen(false);
   };
 
+  const validateEmail = (email: string) => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+      setEmailError('Invalid email format');
+      return false;
+    } else {
+      setEmailError('');
+      return true;
+    }
+  };
+
   const handleFormSubmit = async () => {
+    const isValidEmail = validateEmail(formData.email);
+
+    // Periksa apakah semua input diisi
+    if (formData.email.trim() === '' || formData.fname.trim() === '' || formData.lname.trim() === '') {
+      // Set pesan kesalahan jika ada input yang kosong
+      setEmailError('All fields are required');
+      return;
+    }
+    if (!isValidEmail) {
+      return;
+    }
     try {
-      // Simulate saving form data to local storage using Axios
       localStorage.setItem('formData', JSON.stringify(formData));
       setShowSnackbar(true);
       setFormData({
@@ -64,8 +86,8 @@ const ContainerForm: React.FC = () => {
               onChange={handleInputChange}
               onSubmit={() => {
                 handleFormSubmit();
-                closePopup();
               }}
+              emailError={emailError}
               required={true}
             />
           </PopupForm>

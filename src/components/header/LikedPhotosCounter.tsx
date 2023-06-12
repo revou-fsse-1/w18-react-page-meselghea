@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 interface LikesPhotoCounterProps {
   count: number;
@@ -7,11 +7,10 @@ interface LikesPhotoCounterProps {
 const LikesPhotoCounter: React.FC<LikesPhotoCounterProps> = ({ count }) => {
   const [likedCount, setLikedCount] = useState(count);
 
-  useEffect(() => {
-    // Mengupdate jumlah liked secara otomatis saat prop 'count' berubah
-    setLikedCount(count);
-    console.log(`Liked count changed: ${count}`); // Menampilkan count di console
-  }, [count]);
+  const updateLikedCount = (newCount: number) => {
+    setLikedCount(newCount);
+    console.log(`Liked count changed: ${newCount}`); // Menampilkan count di console
+  };
 
   let responsed = "";
 
@@ -20,6 +19,11 @@ const LikesPhotoCounter: React.FC<LikesPhotoCounterProps> = ({ count }) => {
   } else {
     responsed = `My Liked Photos (${likedCount})`;
   }
+
+  if (count !== likedCount) {
+    updateLikedCount(count);
+  }
+
 
   return (
     <div className="fixed top-0 right-0 px-4 py-2 text-white bg-sky-950 rounded-bl-2xl">
